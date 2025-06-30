@@ -1,0 +1,17 @@
+<view class="category-container">
+  <!-- 全部分类（可选，按需求决定是否保留） -->
+  <view class="category-item all-category" bindtap="goToAll">
+    <text>全部分类</text>
+  </view>
+  <!-- 6个分类模块 -->
+  <view 
+    class="category-item" 
+    wx:for="{{categories}}" 
+    wx:key="index" 
+    bindtap="goToCategoryDetail" 
+    data-type="{{item.type}}"
+    data-name="{{item.name}}"
+  >
+    <image src="{{item.image}}" class="category-img"></image>
+  </view>
+</view>

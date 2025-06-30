@@ -1,0 +1,104 @@
+.user-card {
+    background: #fff;
+    border-radius: 8rpx;
+  }
+  .info {
+    margin-left: 10rpx;
+    display: flex;
+    flex-direction: column; /* 垂直排列，实现换行 */
+    justify-content: center;
+  }
+  
+  .avatar {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+  }
+  .name {
+    font-size: 32rpx;
+    font-weight: bold;
+  }
+  .student-id {
+    font-size: 24rpx;
+    color: #666;
+    margin-top: 5rpx;
+  }
+  .auth-btn {
+    background: #333;
+    color: #fff;
+    padding: 10rpx 20rpx;
+    border-radius: 8rpx;
+  }
+  .auth-tip {
+    color: green;
+  }
+  .menu-list {
+    background: #fff;
+    border-radius: 8rpx;
+  }
+  .menu-item {
+    padding: 20rpx;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .menu-item:last-child {
+    border-bottom: none;
+  }
+  .arrow {
+    width: 40rpx;
+    height: 40rpx;
+  }
+  
+  /* 自定义弹窗（修改后） */
+  .auth-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999; 
+  }
+  .modal-mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3); 
+  }
+  /* 扩大弹窗宽度（左右边距从10%→5%） */
+  .modal-content {
+    position: absolute;
+    top: 30%;
+    left: 5%;   /* 原10% → 减少边距，扩大宽度 */
+    right: 5%;  /* 原10% → 减少边距，扩大宽度 */
+    background: #fff;
+    border-radius: 16rpx;
+    padding: 30rpx;
+  }
+  .modal-title {
+    margin-bottom: 30rpx; /* 从25rpx→30rpx → 标题和输入框间距更大 */
+  }
+  
+  /* 优化输入框：补充 line-height，让高度更饱满，和按钮适配 */
+  .modal-input {
+    padding: 25rpx 15rpx; /* 上下内边距，左右内边距 */
+    margin-bottom: 35rpx; /* 与按钮间距 */
+    font-size: 28rpx;     /* 字体大小 */
+    line-height: 36rpx;   /* 补充！让文字垂直居中，同时撑起输入框高度，和按钮呼应 */
+    border: 1px solid #ddd; /* 可选：加个边框，让输入框更明显，也可根据设计去掉 */
+    border-radius: 8rpx;  /* 可选：圆角，和整体弹窗风格统一 */
+  }
+  
+  .modal-buttons {
+    gap: 15rpx; /* 按钮间距从10rpx→15rpx → 更宽松 */
+  }
+  .modal-btn {
+    padding: 22rpx; /* 按钮高度，通过 padding 撑起 */
+    border-radius: 8rpx; /* 可选：给按钮加圆角，和输入框呼应 */
+  }
+  
+  .modal-btn.cancel {
+    background: #f5f5f5;
+    color: #333;
+  }
+  .modal-btn.confirm {
+    background: #333;
+    color: #fff;
+  }

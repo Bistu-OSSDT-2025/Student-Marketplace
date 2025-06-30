@@ -1,0 +1,76 @@
+<view class="index-container p-16">
+
+<!-- 搜索栏 -->
+<view class="search-bar flex">
+  <input 
+    type="text" 
+    placeholder="搜索物品名称/描述" 
+    bindinput="onSearchInput" 
+    value="{{searchKey}}"
+    class="search-input flex-1"
+  />
+  <button bindtap="onSearch" class="search-btn">搜</button>
+</view>
+
+<!-- 热门分类 -->
+<view class="category-section mt-20">
+  <text class="section-title">热门分类</text>
+  <!-- 两列布局容器 -->
+  <view class="category-grid">
+    <!-- 热门分类左列 -->
+    <view class="category-column">
+      <navigator 
+        wx:for="{{leftCategories}}" 
+        wx:key="index" 
+        url="/pages/category/{{item.type}}/{{item.type}}" 
+        class="category-item flex align-center"
+      >
+        <image 
+          src="/images/category/category-{{item.name}}.png" 
+          mode="widthFix" 
+          class="category-icon"
+        />
+        <text class="category-text ml-5">{{item.name}}</text>
+      </navigator>
+    </view>
+    <!-- 热门分类右列 -->
+    <view class="category-column">
+      <navigator 
+        wx:for="{{rightCategories}}" 
+        wx:key="index" 
+        url="/pages/category/{{item.type}}/{{item.type}}" 
+        class="category-item flex align-center"
+      >
+        <image 
+          src="/images/category/category-{{item.name}}.png" 
+          mode="widthFix" 
+          class="category-icon"
+        />
+        <text class="category-text ml-5">{{item.name}}</text>
+      </navigator>
+    </view>
+  </view>
+</view>
+
+<!-- 最新物品区域 -->
+<view class="section latest-items">
+  <view class="section-title">最新物品</view>
+  <!-- flex 布局容器 -->
+  <view class="items-container flex flex-wrap">
+    <!-- 物品卡片循环渲染（保持不变） -->
+    <view 
+      class="item-card" 
+      wx:for="{{filteredItems}}" 
+      wx:key="id"
+      bindtap="goToDetail"
+      data-id="{{item.id}}"
+    >
+      <image src="{{item.image}}" class="item-image"></image>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+</view>

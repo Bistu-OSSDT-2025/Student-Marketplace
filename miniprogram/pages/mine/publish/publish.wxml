@@ -1,0 +1,66 @@
+<view class="publish-container p-16">
+  <!-- 图片上传 -->
+  <view class="form-item mt-10">
+    <text class="label">物品图片：</text>
+    <image 
+      src="{{imageUrl || '/images/default-img.png'}}" 
+      mode="widthFix" 
+      class="preview-img"
+    />
+    <button bindtap="chooseImage" class="upload-btn mt-10">选择图片</button>
+  </view>
+
+  <!-- 名称 -->
+  <view class="form-item mt-20">
+    <text class="label">物品名称：</text>
+    <input 
+      type="text" 
+      bindinput="onNameInput" 
+      placeholder="请输入物品名称" 
+      class="input"
+    />
+  </view>
+
+  <!-- 分类 -->
+  <view class="form-item mt-20">
+    <text class="label">分类：</text>
+    <picker 
+      mode="selector" 
+      range="{{categories}}" 
+      bindchange="onCategoryChange"
+    >
+      <view class="picker-text">{{currentCategory}}</view>
+    </picker>
+  </view>
+
+  <!-- Tag -->
+  <view class="form-item mt-20">
+    <text class="label">标签（Tag）：</text>
+    <input 
+      type="text" 
+      bindinput="onTagInput" 
+      placeholder="用逗号分隔（如：书籍,闲置）" 
+      class="input"
+    />
+  </view>
+
+  <!-- 描述 -->
+  <view class="form-item mt-20">
+    <text class="label">物品介绍：</text>
+    <textarea 
+      bindinput="onDescInput" 
+      placeholder="限100字内" 
+      maxlength="100" 
+      class="textarea"
+    ></textarea>
+  </view>
+
+  <!-- 发布按钮 -->
+  <button 
+    bindtap="publishItem" 
+    class="publish-btn mt-30"
+    disabled="{{!formValid}}"
+  >
+    发布
+  </button>
+</view>

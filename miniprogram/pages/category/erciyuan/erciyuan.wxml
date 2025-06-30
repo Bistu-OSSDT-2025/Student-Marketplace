@@ -1,0 +1,22 @@
+<view class="category-detail-container">
+  <!-- 左上角标题：全部分类/二次元 -->
+  <view class="detail-header">
+    <text>全部分类 / 二次元</text>
+  </view>
+  <!-- 物品列表：按 category 筛选的二次元类物品 -->
+  <view class="items-container flex flex-wrap">
+    <view 
+      class="item-card" 
+      wx:for="{{filteredItems}}" 
+      wx:key="id"
+      bindtap="goToDetail"
+      data-id="{{item.id}}"
+    >
+      <image src="{{item.image}}" class="item-image"></image>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+</view>

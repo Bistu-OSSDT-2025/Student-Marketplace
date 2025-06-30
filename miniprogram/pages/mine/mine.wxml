@@ -1,0 +1,66 @@
+<!-- pages/mine/mine.wxml -->
+<view class="mine-container p-16">
+  <!-- 用户信息卡 -->
+  <view class="user-card flex align-center p-20">
+    <!-- 动态头像：绑定路径 + 点击事件 -->
+    <image 
+      src="{{avatarUrl}}"  
+      class="avatar"            
+      bindtap="chooseAvatar"  
+  ></image><!-- 动态路径，从 JS data 中读取，保留原有样式类，点击触发选择本地头像 -->  
+  <view class="info ml-10">
+    <text class="name">姓名：{{username || '未认证'}}</text> <!-- 配合需求3的动态用户名 -->
+    <text class="student-id">学号：{{studentId || '未设置'}}</text>
+      <!-- 学号认证按钮 -->
+      <button 
+        bindtap="authStudent" 
+        wx:if="{{!isAuth}}" 
+        class="auth-btn mt-10"
+      >
+        学号认证
+      </button>
+      <text wx:if="{{isAuth}}" class="auth-tip mt-10">已认证</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-list mt-20">
+    <navigator url="/pages/mine/publish/publish" class="menu-item flex justify-between">
+      <text>我的发布</text>
+      <image src="/images/arrow-right.png" class="arrow"></image>
+    </navigator>
+    <navigator url="/pages/mine/trade/trade" class="menu-item flex justify-between">
+      <text>交换记录</text>
+      <image src="/images/arrow-right.png" class="arrow"></image>
+    </navigator>
+  </view>
+
+  <!-- 自定义学号认证弹窗（核心新增） -->
+  <view class="auth-modal" wx:if="{{showAuthModal}}">
+    <!-- 遮罩层（点击空白处关闭） -->
+    <view class="modal-mask" bindtap="hideAuthModal"></view>
+    <!-- 弹窗内容 -->
+    <view class="modal-content">
+      <text class="modal-title">学号认证</text>
+      <input 
+        type="text" 
+        placeholder="请输入学生姓名"  
+        value="{{usernameInput}}" 
+        bindinput="onUsernameInput" 
+        class="modal-input"
+      />
+      <!-- 真正的占位符输入框 -->
+      <input 
+        type="text" 
+        placeholder="请输入学号"  
+        value="{{studentIdInput}}" 
+        bindinput="onStudentIdInput" 
+        class="modal-input"
+      />
+      <view class="modal-buttons">
+        <button bindtap="hideAuthModal" class="modal-btn cancel">取消</button>
+        <button bindtap="confirmAuth" class="modal-btn confirm">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
