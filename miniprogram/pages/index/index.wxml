@@ -1,76 +1,60 @@
-<view class="index-container p-16">
-
-<!-- 搜索栏 -->
-<view class="search-bar flex">
-  <input 
-    type="text" 
-    placeholder="搜索物品名称/描述" 
-    bindinput="onSearchInput" 
-    value="{{searchKey}}"
-    class="search-input flex-1"
-  />
-  <button bindtap="onSearch" class="search-btn">搜</button>
-</view>
-
-<!-- 热门分类 -->
-<view class="category-section mt-20">
-  <text class="section-title">热门分类</text>
-  <!-- 两列布局容器 -->
-  <view class="category-grid">
-    <!-- 热门分类左列 -->
-    <view class="category-column">
-      <navigator 
-        wx:for="{{leftCategories}}" 
-        wx:key="index" 
-        url="/pages/category/{{item.type}}/{{item.type}}" 
-        class="category-item flex align-center"
-      >
-        <image 
-          src="/images/category/category-{{item.name}}.png" 
-          mode="widthFix" 
-          class="category-icon"
-        />
-        <text class="category-text ml-5">{{item.name}}</text>
-      </navigator>
-    </view>
-    <!-- 热门分类右列 -->
-    <view class="category-column">
-      <navigator 
-        wx:for="{{rightCategories}}" 
-        wx:key="index" 
-        url="/pages/category/{{item.type}}/{{item.type}}" 
-        class="category-item flex align-center"
-      >
-        <image 
-          src="/images/category/category-{{item.name}}.png" 
-          mode="widthFix" 
-          class="category-icon"
-        />
-        <text class="category-text ml-5">{{item.name}}</text>
-      </navigator>
+<view class="index-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <text class="search-icon">🔍</text>
+      <input placeholder="搜索商品" bindinput="onSearchInput" />
     </view>
   </view>
-</view>
 
-<!-- 最新物品区域 -->
-<view class="section latest-items">
-  <view class="section-title">最新物品</view>
-  <!-- flex 布局容器 -->
-  <view class="items-container flex flex-wrap">
-    <!-- 物品卡片循环渲染（保持不变） -->
+  <!-- 分类导航 -->
+  <view class="category-nav">
     <view 
-      class="item-card" 
-      wx:for="{{filteredItems}}" 
-      wx:key="id"
-      bindtap="goToDetail"
-      data-id="{{item.id}}"
+      wx:for="{{categories}}" 
+      wx:key="name"
+      class="category-item {{currentCategory === item.name ? 'active' : ''}}"
+      bindtap="onCategoryTap"
+      data-category="{{item.name}}"
     >
-      <image src="{{item.image}}" class="item-image"></image>
-      <view class="item-info">
-        <text class="item-name">{{item.name}}</text>
-        <text class="item-desc">{{item.desc}}</text>
+      <image src="{{item.icon}}" class="category-icon" />
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="item-list">
+    <view wx:if="{{loading && items.length === 0}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:elif="{{items.length === 0}}" class="empty">
+      <text>暂无商品</text>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{items}}" 
+        wx:key="_id"
+        class="item-card"
+        bindtap="onItemTap"
+        data-id="{{item._id}}"
+      >
+        <image src="{{item.images[0]}}" class="item-image" mode="aspectFill" />
+        <view class="item-info">
+          <text class="item-title">{{item.title}}</text>
+          <text class="item-price">¥{{item.price}}</text>
+          <text class="item-category">{{item.category}}</text>
+        </view>
       </view>
     </view>
   </view>
-</view>
+
+  <!-- 加载更多 -->
+  <view wx:if="{{loading && items.length > 0}}" class="load-more">
+    <text>加载中...</text>
+  </view>
+  
+  <view wx:elif="{{!hasMore && items.length > 0}}" class="load-more">
+    <text>没有更多了</text>
+  </view>
 </view>

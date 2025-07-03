@@ -36,3 +36,155 @@
     border-radius: 8rpx;
   }
   
+.detail-container {
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 200rpx 0;
+  color: #b2b2b2;
+  font-size: 28rpx;
+}
+
+.item-detail {
+  background: white;
+  border-radius: 32rpx;
+  margin: 32rpx 24rpx 0 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(7,193,96,0.08);
+  overflow: hidden;
+}
+
+/* 图片轮播 */
+.image-swiper {
+  width: 100%;
+  height: 480rpx;
+  border-radius: 32rpx 32rpx 0 0;
+  overflow: hidden;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 32rpx 32rpx 0 0;
+}
+
+/* 商品信息 */
+.item-info {
+  padding: 36rpx 28rpx 20rpx 28rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.item-title {
+  font-size: 34rpx;
+  color: #222;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 18rpx;
+}
+
+.item-price {
+  font-size: 44rpx;
+  color: #07c160;
+  font-weight: bold;
+  margin-bottom: 12rpx;
+}
+
+.item-category {
+  font-size: 24rpx;
+  color: #fff;
+  background: #07c160;
+  padding: 6rpx 20rpx;
+  border-radius: 16rpx;
+  display: inline-block;
+  margin-bottom: 18rpx;
+  font-weight: 500;
+}
+
+.item-desc {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* 卖家信息 */
+.seller-info {
+  margin: 0 24rpx 24rpx 24rpx;
+  background: #f7fdf9;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.06);
+}
+
+.section-title {
+  font-size: 30rpx;
+  color: #07c160;
+  font-weight: bold;
+  margin-bottom: 18rpx;
+}
+
+.seller-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.seller-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #888;
+  width: 120rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  padding: 32rpx 24rpx 36rpx 24rpx;
+  display: flex;
+  gap: 24rpx;
+}
+
+.contact-btn, .buy-btn, .edit-btn {
+  flex: 1;
+  height: 88rpx;
+  border: none;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.contact-btn {
+  background: linear-gradient(90deg, #e6f9f0 0%, #f2f3f5 100%);
+  color: #07c160;
+}
+
+.buy-btn {
+  background: linear-gradient(90deg, #07c160 0%, #34e89e 100%);
+  color: white;
+}
+
+.buy-btn:active {
+  background: #06ad56;
+}
+
+.edit-btn {
+  background: linear-gradient(90deg, #f2f3f5 0%, #e6f9f0 100%);
+  color: #07c160;
+}
+
+.edit-btn:active {
+  background: #e6f9f0;
+}
+  

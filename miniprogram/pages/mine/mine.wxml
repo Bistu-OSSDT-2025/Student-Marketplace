@@ -1,65 +1,70 @@
 <!-- pages/mine/mine.wxml -->
-<view class="mine-container p-16">
-  <!-- 用户信息卡 -->
-  <view class="user-card flex align-center p-20">
-    <!-- 动态头像：绑定路径 + 点击事件 -->
-    <image 
-      src="{{avatarUrl}}"  
-      class="avatar"            
-      bindtap="chooseAvatar"  
-  ></image><!-- 动态路径，从 JS data 中读取，保留原有样式类，点击触发选择本地头像 -->  
-  <view class="info ml-10">
-    <text class="name">姓名：{{username || '未认证'}}</text> <!-- 配合需求3的动态用户名 -->
-    <text class="student-id">学号：{{studentId || '未设置'}}</text>
-      <!-- 学号认证按钮 -->
-      <button 
-        bindtap="authStudent" 
-        wx:if="{{!isAuth}}" 
-        class="auth-btn mt-10"
-      >
-        学号认证
-      </button>
-      <text wx:if="{{isAuth}}" class="auth-tip mt-10">已认证</text>
+<view class="mine-container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <image src="{{user.avatarUrl || '/images/avatar.png'}}" class="avatar" />
+    <view class="user-info-block">
+      <text class="username">{{user.nickName || '用户'}}</text>
+      <text class="user-id">学号：{{user.studentId || '未设置'}}</text>
+    </view>
+    <button wx:if="{{!isLogin}}" class="main-btn" bindtap="onUserLogin">立即登录</button>
+    <button wx:if="{{isLogin}}" class="main-btn" bindtap="authStudent">学号认证</button>
+    <button wx:if="{{isLogin}}" class="main-btn logout-btn" bindtap="logout">退出登录</button>
+  </view>
+
+  <!-- 订单统计 -->
+  <view wx:if="{{isLogin}}" class="order-stats">
+    <view class="stat-item stat-pending" bindtap="goToOrders">
+      <text class="stat-number">{{orderCounts.pending}}</text>
+      <text class="stat-label">待确认</text>
+    </view>
+    <view class="stat-item stat-confirmed" bindtap="goToOrders">
+      <text class="stat-number">{{orderCounts.confirmed}}</text>
+      <text class="stat-label">已确认</text>
+    </view>
+    <view class="stat-item stat-completed" bindtap="goToOrders">
+      <text class="stat-number">{{orderCounts.completed}}</text>
+      <text class="stat-label">已完成</text>
     </view>
   </view>
 
-  <!-- 功能菜单 -->
-  <view class="menu-list mt-20">
-    <navigator url="/pages/mine/publish/publish" class="menu-item flex justify-between">
-      <text>我的发布</text>
-      <image src="/images/arrow-right.png" class="arrow"></image>
-    </navigator>
-    <navigator url="/pages/mine/trade/trade" class="menu-item flex justify-between">
-      <text>交换记录</text>
-      <image src="/images/arrow-right.png" class="arrow"></image>
-    </navigator>
+  <!-- 功能菜单宫格 -->
+  <view class="menu-grid">
+    <view class="menu-grid-item" bindtap="goToPublish">
+      <image src="/images/publish-active.png" class="menu-icon-img" />
+      <text class="menu-title">发布商品</text>
+    </view>
+    <view class="menu-grid-item" bindtap="goToOrders">
+      <image src="/images/home-active.png" class="menu-icon-img" />
+      <text class="menu-title">我的订单</text>
+    </view>
+    <view class="menu-grid-item" bindtap="goToMyItems">
+      <image src="/images/category-active.png" class="menu-icon-img" />
+      <text class="menu-title">我的商品</text>
+    </view>
+    <view class="menu-grid-item" bindtap="contactService">
+      <image src="/images/avatar.png" class="menu-icon-img" />
+      <text class="menu-title">联系客服</text>
+    </view>
+    <view class="menu-grid-item" bindtap="aboutUs">
+      <image src="/images/mine-active.png" class="menu-icon-img" />
+      <text class="menu-title">关于我们</text>
+    </view>
+    <view class="menu-grid-item" bindtap="feedback">
+      <image src="/images/publish.png" class="menu-icon-img" />
+      <text class="menu-title">意见反馈</text>
+    </view>
   </view>
 
-  <!-- 自定义学号认证弹窗（核心新增） -->
-  <view class="auth-modal" wx:if="{{showAuthModal}}">
-    <!-- 遮罩层（点击空白处关闭） -->
-    <view class="modal-mask" bindtap="hideAuthModal"></view>
-    <!-- 弹窗内容 -->
+  <!-- 学号认证弹窗 -->
+  <view wx:if="{{showAuthModal}}" class="auth-modal">
     <view class="modal-content">
       <text class="modal-title">学号认证</text>
-      <input 
-        type="text" 
-        placeholder="请输入学生姓名"  
-        value="{{usernameInput}}" 
-        bindinput="onUsernameInput" 
-        class="modal-input"
-      />
-      <!-- 真正的占位符输入框 -->
-      <input 
-        type="text" 
-        placeholder="请输入学号"  
-        value="{{studentIdInput}}" 
-        bindinput="onStudentIdInput" 
-        class="modal-input"
-      />
-      <view class="modal-buttons">
-        <button bindtap="hideAuthModal" class="modal-btn cancel">取消</button>
-        <button bindtap="confirmAuth" class="modal-btn confirm">确定</button>
+      <input placeholder="请输入用户名" value="{{usernameInput}}" bindinput="onUsernameInput" class="modal-input" />
+      <input placeholder="请输入学号" value="{{studentIdInput}}" bindinput="onStudentIdInput" class="modal-input" />
+      <view class="modal-actions">
+        <button bindtap="confirmAuth">确认</button>
+        <button bindtap="hideAuthModal">取消</button>
       </view>
     </view>
   </view>

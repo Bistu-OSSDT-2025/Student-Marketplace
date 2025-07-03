@@ -1,0 +1,35 @@
+<view class="privacy-container">
+  <view class="privacy-content">
+    <text class="privacy-title">隐私政策</text>
+    
+    <view class="section">
+      <text class="section-title">信息收集</text>
+      <text class="section-content">我们收集的信息包括：</text>
+      <text class="section-item">• 微信用户基本信息（昵称、头像）</text>
+      <text class="section-item">• 用户发布的商品信息</text>
+      <text class="section-item">• 交易记录信息</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">信息使用</text>
+      <text class="section-content">收集的信息仅用于：</text>
+      <text class="section-item">• 提供二手交易服务</text>
+      <text class="section-item">• 用户身份验证</text>
+      <text class="section-item">• 交易记录管理</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">信息保护</text>
+      <text class="section-content">我们承诺：</text>
+      <text class="section-item">• 不会泄露用户个人信息</text>
+      <text class="section-item">• 不会将信息用于其他商业用途</text>
+      <text class="section-item">• 采用安全措施保护用户数据</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">联系方式</text>
+      <text class="section-content">如有疑问，请联系：</text>
+      <text class="contact-email" bindtap="copyContact">xxx@xxx.com</text>
+    </view>
+  </view>
+</view> 

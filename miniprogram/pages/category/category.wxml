@@ -1,17 +1,22 @@
-<view class="category-container">
-  <!-- 全部分类（可选，按需求决定是否保留） -->
-  <view class="category-item all-category" bindtap="goToAll">
-    <text>全部分类</text>
+<view class="category-simple-bg">
+  <view class="category-header">
+    <text class="category-title">商品分类</text>
+    <view class="category-divider"></view>
   </view>
-  <!-- 6个分类模块 -->
-  <view 
-    class="category-item" 
-    wx:for="{{categories}}" 
-    wx:key="index" 
-    bindtap="goToCategoryDetail" 
-    data-type="{{item.type}}"
-    data-name="{{item.name}}"
-  >
-    <image src="{{item.image}}" class="category-img"></image>
+  <view class="category-simple-grid">
+    <view 
+      class="category-simple-card {{item.animated ? 'fade-in-up' : ''}}" 
+      wx:for="{{categories}}" 
+      wx:key="index" 
+      bindtap="goToCategoryDetail" 
+      data-type="{{item.type}}"
+      data-name="{{item.name}}"
+      hover-class="card-active"
+    >
+      <view class="category-img-border">
+        <image src="{{item.image}}" class="category-simple-img"></image>
+      </view>
+      <text class="category-simple-name">{{item.name}}</text>
+    </view>
   </view>
 </view>

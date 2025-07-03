@@ -1,2 +1,103 @@
 <!--pages/mine/trade/trade.wxml-->
-<text>pages/mine/trade/trade.wxml</text>
+<view class="trade-container">
+  <!-- 标签栏 -->
+  <view class="tab-bar">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="key"
+      class="tab-item {{currentTab === item.key ? 'active' : ''}}"
+      bindtap="onTabChange"
+      data-key="{{item.key}}"
+    >
+      {{item.name}}
+    </view>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <view wx:if="{{loading}}" class="loading">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:elif="{{orders.length === 0}}" class="empty">
+      <text>暂无订单</text>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{orders}}" 
+        wx:key="_id"
+        class="order-item"
+      >
+        <!-- 订单头部 -->
+        <view class="order-header">
+          <text class="order-id">订单号：{{item._id}}</text>
+          <text class="order-status {{item.status}}">{{statusMap[item.status]}}</text>
+        </view>
+
+        <!-- 商品信息 -->
+        <view class="item-info" bindtap="viewItem" data-item-id="{{item.itemId}}">
+          <image src="/images/default-img.png" class="item-image" />
+          <view class="item-details">
+            <text class="item-title">{{item.itemTitle}}</text>
+            <text class="item-price">¥{{item.itemPrice}}</text>
+          </view>
+        </view>
+
+        <!-- 订单信息 -->
+        <view class="order-info">
+          <text class="order-time">创建时间：{{item.createTime}}</text>
+          <text class="order-role">
+            {{item.buyerOpenid === getApp().globalData.openid ? '我是买家' : '我是卖家'}}
+          </text>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="order-actions">
+          <button 
+            class="action-btn contact-btn"
+            bindtap="contactUser"
+            data-openid="{{item.buyerOpenid === getApp().globalData.openid ? item.sellerOpenid : item.buyerOpenid}}"
+            data-role="{{item.buyerOpenid === getApp().globalData.openid ? 'seller' : 'buyer'}}"
+          >
+            联系对方
+          </button>
+          
+          <!-- 买家操作 -->
+          <block wx:if="{{item.buyerOpenid === getApp().globalData.openid}}">
+            <button 
+              wx:if="{{item.status === 'pending'}}"
+              class="action-btn cancel-btn"
+              bindtap="cancelOrder"
+              data-id="{{item._id}}"
+            >
+              取消订单
+            </button>
+          </block>
+          
+          <!-- 卖家操作 -->
+          <block wx:if="{{item.sellerOpenid === getApp().globalData.openid}}">
+            <button 
+              wx:if="{{item.status === 'pending'}}"
+              class="action-btn confirm-btn"
+              bindtap="updateOrderStatus"
+              data-id="{{item._id}}"
+              data-status="confirmed"
+            >
+              确认订单
+            </button>
+            <button 
+              wx:if="{{item.status === 'confirmed'}}"
+              class="action-btn complete-btn"
+              bindtap="updateOrderStatus"
+              data-id="{{item._id}}"
+              data-status="completed"
+            >
+              完成交易
+            </button>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -5,12 +5,21 @@ const db = cloud.database()
 
 exports.main = async (event, context) => {
   const { action, data } = event
+  
   try {
     switch (action) {
+      // 获取用户 openid
+      case 'getOpenid':
+        return await getOpenid(context)
+      
+      // 注册/更新用户信息
       case 'register':
         return await registerUser(data)
+      
+      // 获取用户信息
       case 'info':
         return await getUserInfo(data)
+      
       default:
         return { success: false, msg: '未知操作类型' }
     }
@@ -20,15 +29,30 @@ exports.main = async (event, context) => {
   }
 }
 
+// 获取用户 openid
+async function getOpenid(context) {
+  const wxContext = cloud.getWXContext()
+  return { 
+    success: true, 
+    openid: wxContext.OPENID 
+  }
+}
+
+// 注册/更新用户信息
 async function registerUser(data) {
   const { openid, studentId, nickname, avatar } = data
+  
+  // 检查用户是否已存在
   const user = await db.collection('users').where({ openid }).get()
+  
   if (user.data.length > 0) {
+    // 更新用户信息
     await db.collection('users').where({ openid }).update({
       data: { studentId, nickname, avatar, updateTime: db.serverDate() }
     })
     return { success: true, msg: '用户信息已更新' }
   } else {
+    // 新增用户
     await db.collection('users').add({
       data: {
         openid,
@@ -43,6 +67,7 @@ async function registerUser(data) {
   }
 }
 
+// 获取用户信息
 async function getUserInfo({ openid }) {
   const user = await db.collection('users').where({ openid }).get()
   return { success: true, data: user.data[0] || null }

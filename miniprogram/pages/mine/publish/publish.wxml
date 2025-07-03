@@ -2,12 +2,17 @@
   <!-- 图片上传 -->
   <view class="form-item mt-10">
     <text class="label">物品图片：</text>
-    <image 
-      src="{{imageUrl || '/images/default-img.png'}}" 
-      mode="widthFix" 
-      class="preview-img"
-    />
-    <button bindtap="chooseImage" class="upload-btn mt-10">选择图片</button>
+    <view class="image-upload" bindtap="chooseImage">
+      <image 
+        wx:if="{{imageUrl}}" 
+        src="{{imageUrl}}" 
+        mode="aspectFill" 
+        class="uploaded-image"
+      ></image>
+      <view wx:else class="upload-placeholder">
+        <text>点击上传图片</text>
+      </view>
+    </view>
   </view>
 
   <!-- 名称 -->
@@ -18,6 +23,19 @@
       bindinput="onNameInput" 
       placeholder="请输入物品名称" 
       class="input"
+      value="{{name}}"
+    />
+  </view>
+
+  <!-- 价格 -->
+  <view class="form-item mt-20">
+    <text class="label">价格：</text>
+    <input 
+      type="digit" 
+      bindinput="onPriceInput" 
+      placeholder="请输入价格" 
+      class="input"
+      value="{{price}}"
     />
   </view>
 
@@ -52,6 +70,7 @@
       placeholder="限100字内" 
       maxlength="100" 
       class="textarea"
+      value="{{desc}}"
     ></textarea>
   </view>
 
@@ -59,8 +78,8 @@
   <button 
     bindtap="publishItem" 
     class="publish-btn mt-30"
-    disabled="{{!formValid}}"
+    disabled="{{!formValid || uploading}}"
   >
-    发布
+    {{uploading ? '发布中...' : '发布商品'}}
   </button>
 </view>

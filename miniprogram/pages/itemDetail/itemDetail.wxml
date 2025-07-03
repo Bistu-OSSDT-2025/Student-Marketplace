@@ -1,23 +1,70 @@
-<view class="item-container p-16">
-  <!-- 物品图片 -->
-  <image src="{{item.image}}" class="item-img"></image>
+<view class="detail-container">
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+  
+  <view wx:elif="{{item}}" class="item-detail">
+    <!-- 商品图片 -->
+    <swiper class="image-swiper" indicator-dots="{{item.images.length > 1}}">
+      <swiper-item wx:for="{{item.images}}" wx:key="*this">
+        <image 
+          src="{{item}}" 
+          mode="aspectFill" 
+          class="item-image"
+          bindtap="previewImage"
+          data-current="{{item}}"
+        />
+      </swiper-item>
+    </swiper>
 
-  <!-- 物品信息区 -->
-  <view class="item-info mt-10 p-20 bg-white rounded">
-    <!-- 物品名称 -->
-    <text class="item-name">{{item.name}}</text>
-    
-    <!-- 分类（单独一行） -->
-    <text class="item-category mt-5">分类：{{item.category}}</text>
-    
-    <!-- 标签（单独一行） -->
-    <text class="item-tag mt-5">标签：{{item.tag}}</text>
-    
-    <!-- 物品描述 -->
-    <text class="item-desc mt-10">{{item.desc}}</text>
+    <!-- 商品信息 -->
+    <view class="item-info">
+      <view class="item-title">{{item.title}}</view>
+      <view class="item-price">¥{{item.price}}</view>
+      <view class="item-category">分类：{{item.category}}</view>
+      <view class="item-desc">{{item.desc}}</view>
+    </view>
 
-    <!-- 交互按钮 -->
-    <button bindtap="copyWechat" class="btn mt-20">私聊（复制原主微信）</button>
-    <button bindtap="confirmTrade" class="btn mt-10">达成交易</button>
+    <!-- 卖家信息 -->
+    <view class="seller-info">
+      <view class="section-title">卖家信息</view>
+      <view class="seller-item">
+        <text class="label">微信：</text>
+        <text class="value">{{item.ownerWechat || '暂无'}}</text>
+      </view>
+      <view class="seller-item" wx:if="{{item.ownerPhone}}">
+        <text class="label">电话：</text>
+        <text class="value">{{item.ownerPhone}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button 
+        wx:if="{{!isOwner}}" 
+        class="contact-btn" 
+        bindtap="contactSeller"
+      >
+        联系卖家
+      </button>
+      <button 
+        wx:if="{{!isOwner}}" 
+        class="buy-btn" 
+        bindtap="createOrder"
+      >
+        立即购买
+      </button>
+      <button 
+        wx:if="{{isOwner}}" 
+        class="edit-btn" 
+        bindtap="editItem"
+      >
+        编辑商品
+      </button>
+    </view>
+  </view>
+
+  <view wx:else class="error">
+    <text>商品不存在或已下架</text>
   </view>
 </view>

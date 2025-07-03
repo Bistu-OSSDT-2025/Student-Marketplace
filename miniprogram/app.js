@@ -3,10 +3,10 @@ App({
       if (!wx.cloud) {
         console.error('请使用 2.2.3 或以上的基础库以使用云能力');
       } else {
-        wx.cloud.init({
-          // env 参数可以填你的云开发环境ID，留空则使用默认环境
-          traceUser: true
-        });
+              wx.cloud.init({
+        env: 'cloud1-0gi6oasj59d07758', // 请替换为你的真实云开发环境ID
+        traceUser: true
+      });
       }
       // 模拟用户信息（实际需登录态管理）
       this.globalData.user = {
@@ -428,13 +428,137 @@ App({
     ownerWechat: 'wx_yw2025'
         }
       ];
+      
+      // 获取用户登录信息
+      this.getUserInfo();
     },
     globalData: {
-      user:{
-          username: '',
-          studentId:''
-      },
+      user: null,
+      openid: null,
       items: []
+    },
+
+    // 获取用户信息
+    getUserInfo() {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: res => {
+                this.globalData.user = res.userInfo;
+                this.getOpenid();
+              }
+            });
+          }
+        }
+      });
+    },
+
+    // 获取用户 openid
+    getOpenid() {
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          action: 'getOpenid'
+        },
+        success: res => {
+          this.globalData.openid = res.result.openid;
+          // 获取用户信息
+          this.getUserFromDB();
+        },
+        fail: err => {
+          console.error('获取 openid 失败:', err);
+        }
+      });
+    },
+
+    // 从数据库获取用户信息
+    getUserFromDB() {
+      if (!this.globalData.openid) return;
+      
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          action: 'info',
+          data: { openid: this.globalData.openid }
+        },
+        success: res => {
+          if (res.result.success && res.result.data) {
+            this.globalData.user = { ...this.globalData.user, ...res.result.data };
+          }
+        },
+        fail: err => {
+          console.error('获取用户信息失败:', err);
+        }
+      });
+    },
+
+    // 注册/更新用户信息
+    registerUser(userData) {
+      if (!this.globalData.openid) {
+        wx.showToast({ title: '请先登录', icon: 'none' });
+        return;
+      }
+
+      return wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          action: 'register',
+          data: {
+            openid: this.globalData.openid,
+            ...userData
+          }
+        }
+      });
+    },
+
+    // 获取商品列表
+    getItems(params = {}) {
+      return wx.cloud.callFunction({
+        name: 'product',
+        data: {
+          action: 'list',
+          data: params
+        }
+      });
+    },
+
+    // 发布商品
+    publishItem(itemData) {
+      if (!this.globalData.openid) {
+        wx.showToast({ title: '请先登录', icon: 'none' });
+        return;
+      }
+
+      return wx.cloud.callFunction({
+        name: 'product',
+        data: {
+          action: 'publish',
+          data: {
+            ...itemData,
+            owner: this.globalData.openid
+          }
+        }
+      });
+    },
+
+    // 创建订单
+    createOrder(orderData) {
+      if (!this.globalData.openid) {
+        wx.showToast({ title: '请先登录', icon: 'none' });
+        return;
+      }
+
+      return wx.cloud.callFunction({
+        name: 'trade',
+        data: {
+          action: 'create',
+          data: {
+            ...orderData,
+            buyerOpenid: this.globalData.openid
+          }
+        }
+      });
     }
   });
   

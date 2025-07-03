@@ -53,37 +53,45 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 999; 
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
   }
-  .modal-mask {
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.3); 
-  }
-  /* 扩大弹窗宽度（左右边距从10%→5%） */
   .modal-content {
-    position: absolute;
-    top: 30%;
-    left: 5%;   /* 原10% → 减少边距，扩大宽度 */
-    right: 5%;  /* 原10% → 减少边距，扩大宽度 */
     background: #fff;
     border-radius: 16rpx;
-    padding: 30rpx;
+    padding: 40rpx 32rpx;
+    width: 80vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .modal-title {
-    margin-bottom: 30rpx; /* 从25rpx→30rpx → 标题和输入框间距更大 */
+    font-size: 32rpx;
+    font-weight: bold;
+    margin-bottom: 32rpx;
   }
-  
-  /* 优化输入框：补充 line-height，让高度更饱满，和按钮适配 */
   .modal-input {
-    padding: 25rpx 15rpx; /* 上下内边距，左右内边距 */
-    margin-bottom: 35rpx; /* 与按钮间距 */
-    font-size: 28rpx;     /* 字体大小 */
-    line-height: 36rpx;   /* 补充！让文字垂直居中，同时撑起输入框高度，和按钮呼应 */
-    border: 1px solid #ddd; /* 可选：加个边框，让输入框更明显，也可根据设计去掉 */
-    border-radius: 8rpx;  /* 可选：圆角，和整体弹窗风格统一 */
+    width: 100%;
+    margin-bottom: 24rpx;
+    padding: 16rpx;
+    border: 1px solid #eee;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+  }
+  .modal-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .modal-actions button {
+    flex: 1;
+    margin: 0 8rpx;
   }
   
   .modal-buttons {
@@ -102,3 +110,219 @@
     background: #333;
     color: #fff;
   }
+
+.mine-container {
+  background: #f5f7fa;
+  min-height: 100vh;
+  padding: 0 0 40rpx 0;
+}
+
+/* 用户信息区域 */
+.user-section {
+  background: white;
+  padding: 48rpx 24rpx 32rpx 24rpx;
+  margin-bottom: 24rpx;
+  border-radius: 28rpx;
+  box-shadow: 0 4rpx 24rpx rgba(7,193,96,0.08);
+  display: flex;
+  align-items: center;
+}
+
+.login-prompt, .user-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  margin-bottom: 18rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.10);
+}
+
+.login-info {
+  flex: 1;
+}
+
+.login-title {
+  font-size: 34rpx;
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.login-desc {
+  font-size: 26rpx;
+  color: #b2b2b2;
+}
+
+.login-btn {
+  background: linear-gradient(90deg, #07c160 0%, #34e89e 100%);
+  color: white;
+  border: none;
+  border-radius: 24rpx;
+  padding: 18rpx 40rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left: 32rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.10);
+}
+
+.user-details {
+  flex: 1;
+}
+
+.username {
+  font-size: 36rpx;
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.user-id {
+  font-size: 26rpx;
+  color: #888;
+}
+
+/* 订单统计 */
+.order-stats {
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.06);
+  display: flex;
+  justify-content: space-around;
+  margin: 0 24rpx 24rpx 24rpx;
+  padding: 24rpx 0;
+}
+
+.stat-item {
+  flex: 1;
+  margin: 0 8rpx;
+  background: #f5f7fa;
+  border-radius: 18rpx;
+  padding: 18rpx 0;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.04);
+}
+
+.stat-pending {
+  border-left: 6rpx solid #ffb300;
+}
+
+.stat-confirmed {
+  border-left: 6rpx solid #07c160;
+}
+
+.stat-completed {
+  border-left: 6rpx solid #409eff;
+}
+
+.stat-number {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #222;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 功能菜单 */
+.menu-section {
+  background: transparent;
+}
+
+.menu-group {
+  margin-bottom: 24rpx;
+  background: white;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.06);
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  background: white;
+  transition: background 0.2s;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background: #e6f9f0;
+}
+
+.menu-icon {
+  font-size: 32rpx;
+  margin-right: 24rpx;
+  width: 40rpx;
+  text-align: center;
+  color: #07c160;
+}
+
+.menu-title {
+  flex: 1;
+  font-size: 28rpx;
+  color: #222;
+}
+
+.menu-arrow {
+  font-size: 24rpx;
+  color: #b2b2b2;
+}
+
+.main-btn {
+  width: 80%;
+  margin: 10rpx 0;
+  background: linear-gradient(90deg, #07c160 0%, #34e89e 100%);
+  color: #fff;
+  border: none;
+  border-radius: 24rpx;
+  padding: 18rpx 0;
+  font-size: 30rpx;
+  font-weight: bold;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.10);
+}
+
+.logout-btn {
+  background: #f56c6c;
+  color: #fff;
+}
+
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 24rpx;
+}
+
+.menu-grid-item {
+  width: 30%;
+  background: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.06);
+  margin-bottom: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0 18rpx 0;
+  transition: box-shadow 0.2s;
+}
+
+.menu-grid-item:active {
+  box-shadow: 0 2rpx 8rpx rgba(7,193,96,0.10);
+}
+
+.menu-icon-img {
+  width: 64rpx;
+  height: 64rpx;
+  margin-bottom: 10rpx;
+}
