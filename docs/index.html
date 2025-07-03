@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信小程序 - 二手交易平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tech-stack {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .tech-stack h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .tech-item strong {
+            color: #667eea;
+        }
+
+        .screenshots {
+            margin: 40px 0;
+        }
+
+        .screenshots h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛍️ 二手交易平台</h1>
+            <p>基于微信小程序的校园二手物品交易平台</p>
+        </div>
+
+        <div class="main-content">
+            <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">项目简介</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">
+                这是一个专为校园用户设计的二手物品交易平台，支持用户发布、浏览和交易二手物品。
+                平台提供便捷的发布流程、智能的分类浏览和安全的交易保障。
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>🏠 首页展示</h3>
+                    <p>展示热门商品和推荐内容，为用户提供个性化的商品推荐</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📂 分类浏览</h3>
+                    <p>按类别浏览商品（电子、服饰、生活、书籍、二次元、其他）</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 商品详情</h3>
+                    <p>查看商品详细信息，包括图片、描述、价格和卖家信息</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📝 发布商品</h3>
+                    <p>用户可以轻松发布自己的二手物品，支持多图上传</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👤 个人中心</h3>
+                    <p>管理个人信息和交易记录，查看发布和购买的商品</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💬 交易功能</h3>
+                    <p>支持买卖双方沟通和交易，提供安全的交易环境</p>
+                </div>
+            </div>
+
+            <div class="tech-stack">
+                <h2>技术栈</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <strong>前端</strong><br>
+                        微信小程序原生开发
+                    </div>
+                    <div class="tech-item">
+                        <strong>后端</strong><br>
+                        微信云开发
+                    </div>
+                    <div class="tech-item">
+                        <strong>数据库</strong><br>
+                        云数据库
+                    </div>
+                    <div class="tech-item">
+                        <strong>存储</strong><br>
+                        云存储
+                    </div>
+                </div>
+            </div>
+
+            <div class="screenshots">
+                <h2>项目截图</h2>
+                <div class="screenshot-grid">
+                    <div class="screenshot">
+                        <h4>首页界面</h4>
+                        <p>展示热门商品和分类导航</p>
+                    </div>
+                    <div class="screenshot">
+                        <h4>分类页面</h4>
+                        <p>按类别浏览商品</p>
+                    </div>
+                    <div class="screenshot">
+                        <h4>商品详情</h4>
+                        <p>查看商品详细信息</p>
+                    </div>
+                    <div class="screenshot">
+                        <h4>个人中心</h4>
+                        <p>管理个人信息和交易</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="https://github.com/Bistu-OSSDT-2025/Student-Marketplace" class="btn" target="_blank">
+                    📁 查看源码
+                </a>
+                <a href="https://github.com/Bistu-OSSDT-2025/Student-Marketplace/blob/main/README.md" class="btn btn-secondary" target="_blank">
+                    📖 详细文档
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 二手交易平台. 基于微信小程序开发</p>
+            <p>北京信息科技大学 OSSDT 项目</p>
+        </div>
+    </div>
+</body>
+</html> 
